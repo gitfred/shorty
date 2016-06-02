@@ -38,7 +38,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # EXTERNAL
+    'django_extensions',
+
     # CUSTOM:
+    'accounts',
     'shortener',
 )
 
@@ -70,6 +74,32 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'with_time': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(message)s'
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'django.log'),
+            'formatter': 'with_time',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level':
+                os.getenv('DJANGO_LOG_LEVEL', 'DEBUG' if DEBUG else 'INFO'),
+            'propagate': True,
+        },
+    },
+}
 
 WSGI_APPLICATION = 'shorty.wsgi.application'
 
@@ -103,3 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+RANDOMUSER_ME_URL = 'https://randomuser.me/api/'
+
+# Max 50
+SHORT_LINK_LEN = 3
