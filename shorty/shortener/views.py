@@ -19,6 +19,7 @@ class ShortLinkCreateView(CreateView):
         short_link = form.save(commit=False)
         # get random user
         short_link.user = User.objects.order_by('?').first()
+
         duplicates = self.model.objects.filter(
             destination=short_link.destination)
         if duplicates:

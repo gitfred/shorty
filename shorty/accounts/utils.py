@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 def generate_random_users(number: int):
+    """Function for generating fake random users.
+
+    :param number: number of users to be created
+    """
     resp = requests.get(
         settings.RANDOMUSER_ME_URL,
         params={

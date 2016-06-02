@@ -15,7 +15,15 @@ class ShortLink(models.Model):
         return reverse('short-link-detail', kwargs={'link': self.link})
 
     @classmethod
-    def find_free_link(cls, max_retries=10):
+    def find_free_link(cls, max_retries: int=10):
+        """Looks for available link.
+
+        :param max_retries: How many times method should try to find a free link
+        :returns: link which can be used for createing new ShortLink
+        :rtype: str
+        :raises Exception: When free link couldn't be found
+
+        """
         for _ in range(max_retries):
             link = get_random_string(settings.SHORT_LINK_LEN)
             if not cls.objects.filter(link=link):
