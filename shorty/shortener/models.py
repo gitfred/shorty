@@ -1,3 +1,5 @@
+import random
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -25,7 +27,8 @@ class ShortLink(models.Model):
 
         """
         for _ in range(max_retries):
-            link = get_random_string(settings.SHORT_LINK_LEN)
+            # the length must have at most settings.SHORT_LINK_LEN chars
+            link = get_random_string(random.randint(1, settings.SHORT_LINK_LEN))
             if not cls.objects.filter(link=link):
                 return link
 
