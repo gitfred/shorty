@@ -1,0 +1,10 @@
+<html>
+<head>
+
+</head>
+<body>
+<p>Short link to copy: <span>{{ request.META.HTTP_HOST }}/{{ object.link }}</span></p>
+<p>Destination: <span><a href="{{ object.destination }}">{{ object.destination }}</a></span></p>
+<p>Author: <span>{{ object.user.get_full_name }} ({{ object.user.username }})</span></p>
+</body>
+</html>
