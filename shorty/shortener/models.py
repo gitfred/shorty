@@ -29,4 +29,4 @@ class ShortLink(models.Model):
             if not cls.objects.filter(link=link):
                 return link
 
-        raise Exception("Couldn't find link for {} reties".format(max_retries))
+        raise Exception("Couldn't find link for {} retries".format(max_retries))
