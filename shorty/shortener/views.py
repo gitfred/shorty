@@ -36,7 +36,6 @@ class ShortLinkDetailView(DetailView):
     model = ShortLink
 
     def get_object(self, queryset=None):
-        queryset = queryset or self.queryset
         return get_object_or_404(self.model, link=self.kwargs['link'])
 
 
