@@ -8,6 +8,12 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
+    """Create fake users using randomuser.me
+
+    `$ ./manage.py create_fake_users 100`
+
+    The above creates 100 fake users
+    """
     help = "Create fake users using randomuser.me"
 
     def add_arguments(self, parser):

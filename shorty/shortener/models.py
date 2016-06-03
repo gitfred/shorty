@@ -7,6 +7,8 @@ from django.utils.crypto import get_random_string
 
 
 class ShortLink(models.Model):
+    """Represents shortened URL.
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     link = models.CharField(max_length=50)
     destination = models.URLField()

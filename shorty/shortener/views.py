@@ -12,10 +12,24 @@ User = get_user_model()
 
 
 class ShortLinkCreateView(CreateView):
+    """Create ShortLink view.
+
+    Creates ShortLink or redirects to existing one.
+    """
     model = ShortLink
     fields = ['destination']
 
     def form_valid(self, form):
+        """Create new ShortLink with random user.
+
+        Receives ShortLink create form, assigns random user
+        as its owner and generates short link for its desination.
+        If the ShortLink with the desination already exists, user is
+        redirected to the existing one immediately.
+
+        :param form: a ModelForm object
+        :returns: HttpRedirect to desination url
+        """
         short_link = form.save(commit=False)
         # get random user
         short_link.user = User.objects.order_by('?').first()
@@ -33,6 +47,11 @@ class ShortLinkCreateView(CreateView):
 
 
 class ShortLinkDetailView(DetailView):
+    """ShortLink detail view
+
+    Simply returns basic information about ShortLink such as author,
+    short link and destination URL. It uses 'link' model field instead of 'pk'.
+    """
     model = ShortLink
 
     def get_object(self, queryset=None):
@@ -41,6 +60,10 @@ class ShortLinkDetailView(DetailView):
 
 
 class ShortLinkRedirectView(RedirectView):
+    """ShortLink redirect view
+
+    Redirects user to the destination URL based on 'link'.
+    """
 
     def get_redirect_url(self, *args, **kwargs):
         short_link = get_object_or_404(ShortLink, link=kwargs['link'])
